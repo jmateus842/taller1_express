@@ -1,0 +1,90 @@
+#!/usr/bin/env node
+
+/**
+ * Dependencias del modulo.
+ */
+
+var app = require('../app');
+var debug = require('debug')('primer-proyecto:server');
+var http = require('http');
+
+/**
+ * Obtener puerto del entorno y almacenar en Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Crear servidor HTTP.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Escuchar en el puerto proporcionado, en todas las interfaces de red.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalizar un puerto a un numero, cadena o falso.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // tuberia con nombre
+    return val;
+  }
+
+  if (port >= 0) {
+    // numero de puerto
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Detector de eventos para el evento "error" del servidor HTTP.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // manejar errores de escucha especificos con mensajes amigables
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requiere privilegios elevados');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' ya esta en uso');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Detector de eventos para el evento "listening" del servidor HTTP.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Escuchando en ' + bind);
+}
