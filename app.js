@@ -3,6 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+
+// Conectar a MongoDB (configurado en docker-compose.yml)
+mongoose.connect('mongodb://admin:password@db:27017/fotosdb?authSource=admin')
+  .then(() => console.log('Conexión a MongoDB establecida'))
+  .catch(err => console.error('Error al conectar a MongoDB:', err));
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
