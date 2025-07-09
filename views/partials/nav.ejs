@@ -1,23 +1,23 @@
-<nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+<nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
     <div class="position-sticky pt-3">
-        <div class="text-center pb-3 border-bottom border-secondary">
-            <h5 class="text-white">
-                <i class="material-icons">admin_panel_settings</i>
-                Panel de Administracion
+        <div class="px-3 pb-3 mb-3 border-bottom">
+            <h5 class="mb-0 text-white">
+                <i class="material-icons">camera</i>
+                FotoGalería
             </h5>
+            <small class="text-white-50">Panel de Control</small>
         </div>
-        <ul class="nav flex-column mt-3">
+        <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="/">
+                <a class="nav-link" href="/">
                     <i class="material-icons">dashboard</i>
                     Tablero
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/photos">
+                <a class="nav-link active" aria-current="page" href="/photos">
                     <i class="material-icons">photo_library</i>
                     Fotos
-                    <span class="badge bg-success ms-2">API</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -29,14 +29,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="material-icons">settings</i>
-                    Configuracion
+                    Configuración
                 </a>
             </li>
-            <li class="nav-item mt-3">
-                <hr class="border-secondary">
-                <a class="nav-link text-muted" href="#">
-                    <i class="material-icons">help_outline</i>
-                    Ayuda y Soporte
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+            <span>Reportes</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="material-icons">analytics</i>
+                    Estadísticas
                 </a>
             </li>
         </ul>
