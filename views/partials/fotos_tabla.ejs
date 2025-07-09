@@ -61,16 +61,90 @@
                     Mostrando <%= arrFotos.length %> foto<%= arrFotos.length !== 1 ? 's' : '' %>
                 </small>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-success">
+                    <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#agregarFotoModal">
                         <i class="material-icons">add</i>
                         Agregar Foto
                     </button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.reload()">
                         <i class="material-icons">refresh</i>
                         Actualizar
                     </button>
                 </div>
             </div>
+        <% } else { %>
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#agregarFotoModal">
+                    <i class="material-icons">add</i>
+                    Agregar Primera Foto
+                </button>
+            </div>
         <% } %>
     </div>
-</div> 
+</div>
+
+<!-- Modal para agregar foto -->
+<div class="modal fade" id="agregarFotoModal" tabindex="-1" aria-labelledby="agregarFotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agregarFotoModalLabel">
+                    <i class="material-icons">add_photo_alternate</i>
+                    Agregar Nueva Foto
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/photos/add" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="url" class="form-label">URL de la imagen</label>
+                        <input type="url" class="form-control" id="url" name="url" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imagenPreview" class="form-label">Vista previa</label>
+                        <div class="text-center p-3 border rounded">
+                            <img id="imagenPreview" src="" alt="Vista previa" style="max-width: 100%; max-height: 200px; display: none;">
+                            <div id="previewPlaceholder" class="text-muted">
+                                <i class="material-icons" style="font-size: 48px;">image</i>
+                                <p>La vista previa aparecerá aquí</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlInput = document.getElementById('url');
+        const imagenPreview = document.getElementById('imagenPreview');
+        const previewPlaceholder = document.getElementById('previewPlaceholder');
+        
+        urlInput.addEventListener('input', function() {
+            const url = this.value.trim();
+            if (url) {
+                imagenPreview.src = url;
+                imagenPreview.style.display = 'block';
+                previewPlaceholder.style.display = 'none';
+                
+                // Si la imagen no carga correctamente
+                imagenPreview.onerror = function() {
+                    imagenPreview.style.display = 'none';
+                    previewPlaceholder.style.display = 'block';
+                };
+            } else {
+                imagenPreview.style.display = 'none';
+                previewPlaceholder.style.display = 'block';
+            }
+        });
+    });
+</script> 

@@ -1,5 +1,5 @@
-# FROM node:14-alpine - Especifica la imagen base
-FROM node:14-alpine
+# FROM node:18-alpine - Especifica la imagen base (compatible con Mongoose 8)
+FROM node:18-alpine
 
 # WORKDIR /usr/src/app - Establece el directorio de trabajo dentro del contenedor
 WORKDIR /usr/src/app
